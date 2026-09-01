@@ -51,7 +51,7 @@ dsh plugin --profile web add ./dsh-versions
 
 # 方式三：离线 tarball
 npm pack                       # 在 dsh-versions 仓库根目录执行
-dsh plugin --profile web add ./dsh-versions-0.2.0.tgz
+dsh plugin --profile web add ./dsh-versions-0.2.1.tgz
 ```
 
 装完重启 dsh web，进 **设置 → 插件 → 版本**。
