@@ -56,6 +56,8 @@ dsh plugin --profile web add ./dsh-versions-0.2.1.tgz
 
 装完重启 dsh web，进 **设置 → 插件 → 版本**。
 
+> 维护者发布到 npm / GitHub 的完整清单见 [PUBLISH.md](./PUBLISH.md)。
+
 > **平台限制**：**版本查看 / 更新检查在所有平台可用**；但**升级 / 重装 / 恢复 / 手动重启**引擎
 > 依赖 Windows 工具（`robocopy` / `schtasks` / Windows PowerShell 5.1），仅在 Windows 上提供——
 > 其他平台对应按钮会禁用并提示原因（服务端同样拒绝并返回 501）。
