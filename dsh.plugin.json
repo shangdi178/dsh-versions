@@ -1,0 +1,11 @@
+{
+  "id": "dsh-versions",
+  "version": "0.1.0",
+  "main": "./lib/index.js",
+  "description": "最简 dsh 版本管理：查看 dsh 主程序与全部已安装插件的版本，一键检查 npm 更新",
+  "engines": { "dsh": ">=0.1.0" },
+  "contributes": {
+    "tools": [],
+    "skills": []
+  }
+}
