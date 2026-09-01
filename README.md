@@ -39,16 +39,27 @@ DeepSeek Harness（dsh）版本管理插件：在 dsh web 的 **设置 → 插�
 
 ## 安装
 
+需要 dsh ≥ 0.1.0（`dsh plugin` 命令自 0.1.x 提供）。三种方式任选其一：
+
 ```sh
-# npm 包（推荐）
+# 方式一：npm 包（发布后，推荐）
 dsh plugin --profile web add dsh-versions
 
-# 或从源码目录
+# 方式二：从源码目录（未发布 / 自编译时）
 git clone https://github.com/shangdi178/dsh-versions
 dsh plugin --profile web add ./dsh-versions
+
+# 方式三：离线 tarball
+npm pack                       # 在 dsh-versions 仓库根目录执行
+dsh plugin --profile web add ./dsh-versions-0.2.0.tgz
 ```
 
 装完重启 dsh web，进 **设置 → 插件 → 版本**。
+
+> **平台限制**：**版本查看 / 更新检查在所有平台可用**；但**升级 / 重装 / 恢复 / 手动重启**引擎
+> 依赖 Windows 工具（`robocopy` / `schtasks` / Windows PowerShell 5.1），仅在 Windows 上提供——
+> 其他平台对应按钮会禁用并提示原因（服务端同样拒绝并返回 501）。
+> 非 Windows 用户如需升级 dsh，请手动执行 `npm install -g @deepseek-ai/dsh@<版本>`。
 
 ## HTTP 接口（环回，仅限本机访问）
 
