@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.1 (unreleased)
+## 0.2.1 (2026-09-02)
 
 - **平台防护**：升级/重启引擎仅 Windows 可用（依赖 robocopy / schtasks / Windows PowerShell 5.1）；
   非 Windows 时 `/state` 返回 `engineSupported: false`，UI 禁用升级/重装/恢复/重启按钮并提示，

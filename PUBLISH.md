@@ -1,6 +1,9 @@
 # 发布清单（dsh-versions → npm / GitHub）
 
-代码已就绪（`v0.2.1` 标签已打，发布面已验证），以下步骤需你在本机执行。
+> ✅ **v0.2.1 已于 2026-09-02 发布完成**：GitHub（main + 标签 + Release）与 npm 均已上线。
+> 下方保留步骤记录，供后续 0.3.0 等版本参考。
+
+代码已就绪（`v0.2.1` 标签已打，发布面已验证）。
 
 ## 0. 发布面已确认
 
@@ -17,9 +20,14 @@ lib/client.js  lib/compare.js  lib/index.js  package.json
 node "C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js" pack --dry-run --cache "%TEMP%\dshv-npm-cache"
 ```
 
-## 1. npm 发布
+## 1. npm 发布（✅ v0.2.1 已发布）
 
-当前机器**未登录**（`npm whoami` 报 ENEEDAUTH），先登录再发布：
+> 2026-09-02 记录：账号 `shangdi178` 已含 `_authToken`（`npm whoami` → shangdi178），
+> 但发布需 2FA。聊天内传 OTP 因 30 秒有效期 + 往返延迟不可靠（两次 EOTP），最终由本机终端
+> 直接 `npm publish --access public` 完成（本人输入 OTP）。已通过 `npm view dsh-versions version`
+> → `0.2.1`、dist-tags `latest: 0.2.1` 及下载 tarball 校验（shasum 一致、8 文件）。
+
+发布前确认登录（`npm whoami` 报 ENEEDAUTH 时先 login）：
 
 ```sh
 cd C:\Users\Hepu\dsh-plugins\dsh-versions
@@ -35,10 +43,13 @@ npm view dsh-versions version            # 应输出 0.2.1
 npm view dsh-versions files              # 应含 8 个发布文件
 ```
 
-## 2. GitHub 仓库（方式二依赖）
+## 2. GitHub 仓库（✅ v0.2.1 已推送 + Release）
 
-README 方式二写的是 `git clone https://github.com/shangdi178/dsh-versions`。
-web 检索未找到该仓库——若它尚不存在，请创建同名仓库并推送：
+> 2026-09-02 记录：`origin` 已指向 `github.com/shangdi178/dsh-versions.git`（https 形式），
+> `main` 与 `v0.2.1` 标签均已推送，Release 已建：
+> `https://github.com/shangdi178/dsh-versions/releases/tag/v0.2.1`。
+
+推送步骤（若换了远程地址沿用）：
 
 ```sh
 cd C:\Users\Hepu\dsh-plugins\dsh-versions
