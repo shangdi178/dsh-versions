@@ -1,7 +1,10 @@
 # 发布清单（dsh-versions → npm / GitHub）
 
-> ✅ **v0.2.1 已于 2026-09-02 发布完成**：GitHub（main + 标签 + Release）与 npm 均已上线。
-> 下方保留步骤记录，供后续 0.3.0 等版本参考。
+> ✅ **v0.2.1 已于 2026-09-02 发布完成**（GitHub main + 标签 + Release，npm）。
+>
+> 🚧 **v0.3.0（unreleased）**：架构调整——UI 提升为设置面板同级分区（`settings.section`），
+> 移除其它插件 npm 更新检查（`/updates` 端点 + 界面块）；`/state` 精简为框架版本 + 平台/引擎状态。
+> 下方步骤适用于当前待发版本（把版本号替换为 0.3.0）。
 
 代码已就绪（`v0.2.1` 标签已打，发布面已验证）。
 
@@ -88,7 +91,7 @@ type C:\Users\Hepu\.dsh\profiles\sandbox\package.json
 > 注：/dsh-versions HTTP 路由只在 **web** 类 profile（挂了 webServer）里挂载；
 > 裸 sandbox profile 不启 HTTP。若要验证路由，把 sandbox 按 web profile 方式启动后再访问
 > `http://127.0.0.1:<port>/dsh-versions/state`，应返回
-> `{ ok:true, platform, engineSupported, framework, packages }`。
+> `{ ok:true, platform, engineSupported, framework }`。
 
 验证完删除临时 profile：`rmdir /s /q C:\Users\Hepu\.dsh\profiles\sandbox`。
 

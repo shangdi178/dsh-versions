@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.0 (unreleased)
+
+- **架构调整：独立设置分区**：UI 从「插件」设置分区内的子标签（`settings.plugins.tab`）
+  提升为与 General / Plugins / Models **同级的独立设置分区**（`settings.section`，
+  导航名「版本管理」）。dsh 主程序版本管理不再嵌套在插件页里，职责更清晰。
+- **去重：移除其它插件的 npm 更新检查**：删除 `/dsh-versions/updates` 端点及
+  「其他插件版本速览 / 检查插件更新」界面块——它只读提示可更新却无法操作其它插件，
+  与 dsh 版本管理定位重叠。`/state` 精简为框架版本 + 平台/引擎支持状态。
+  其它插件的安装/更新仍由 `dsh plugin` 负责，本插件只专注 dsh 主程序版本。
+- 重构服务端：移除已装插件清单（`listPackages`/`pkgMeta`）相关死代码。
+
 ## 0.2.1 (2026-09-02)
 
 - **平台防护**：升级/重启引擎仅 Windows 可用（依赖 robocopy / schtasks / Windows PowerShell 5.1）；
