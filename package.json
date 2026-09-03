@@ -1,6 +1,6 @@
 {
   "name": "dsh-versions",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "dsh 主程序版本管理：查看 dsh 版本，一键检查 npm 更新，在线升级/降级/重装（升级前自动本地快照，任意历史版本秒级回滚）、升级历史、手动重启",
   "type": "module",
   "main": "./lib/index.js",
