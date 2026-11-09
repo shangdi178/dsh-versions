@@ -2,7 +2,7 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { mkdirSync, writeFileSync, readFileSync, statSync, existsSync, readdirSync, mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { join, dirname, basename } from 'node:path'
 import {
 	createSnapshot,
 	listSnapshots,
@@ -140,4 +140,29 @@ test('pruneSnapshots：损坏优先清，再按保留数清最旧健康快照', 
 	assert.ok(!names.includes('0.1.0') && !names.includes('0.2.0'), '最旧的健康快照应被清出保留数之外')
 	assert.ok(names.includes('0.3.0') && names.includes('0.4.0') && names.includes('0.5.0'))
 	cleanup(store)
+})
+
+test('restoreSnapshot：原子换入，快照外的旧文件不残留（回归：就地覆盖 → 新旧混合目录）', () => {
+	const install = makeInstall('0.5.0', { 'lib/bin.js': 'old', 'lib/old-only.js': 'stale' })
+	const store = snapDir()
+	createSnapshot({ installDir: install, snapshotsDir: store, version: '0.5.0', keep: 5 })
+	// 模拟升级到另一版本，并留下旧版本独有文件 + 新版本新增文件
+	writeFileSync(join(install, 'package.json'), JSON.stringify({ name: '@deepseek-ai/dsh', version: '9.9.9' }), 'utf8')
+	writeFileSync(join(install, 'lib', 'bin.js'), 'new', 'utf8')
+	writeFileSync(join(install, 'extra-only.js'), 'extra', 'utf8')
+
+	const r = restoreSnapshot({ installDir: install, snapshotsDir: store, version: '0.5.0' })
+	assert.equal(r.ok, true, r.error)
+	const pkg = JSON.parse(readFileSync(join(install, 'package.json'), 'utf8'))
+	assert.equal(pkg.version, '0.5.0')
+	assert.equal(readFileSync(join(install, 'lib', 'bin.js'), 'utf8'), 'old')
+	assert.equal(existsSync(join(install, 'lib', 'old-only.js')), true, '快照内文件应恢复')
+	assert.equal(existsSync(join(install, 'extra-only.js')), false, '快照外的旧文件必须被清除，避免混合目录')
+
+	// 不留下暂存/旧目录残留
+	const parent = dirname(install)
+	const prefix = basename(install)
+	const residue = readdirSync(parent).filter((n) => n.startsWith(prefix + '.staged-') || n.startsWith(prefix + '.replaced-'))
+	assert.deepEqual(residue, [], '不应留下 staged/replaced 残留')
+	cleanup(install, store)
 })
